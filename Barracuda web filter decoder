@@ -1,0 +1,38 @@
+<decoder name="barracuda-web">
+  <prematch>web: </prematch>
+</decoder>
+
+<decoder name="barracuda-failed-login">
+  <parent>barracuda-web</parent>
+  <prematch>FAILED_LOGIN</prematch>
+  <regex>web: [(\d+.\d+.\d+.\d+)] FAILED_LOGIN \p(\.+)\p</regex>
+  <order>srcip,srcuser</order>
+</decoder>
+
+<decoder name="barracuda-login">
+  <parent>barracuda-web</parent>
+  <prematch>LOGIN</prematch>
+  <regex>web: [(\d+.\d+.\d+.\d+)] LOGIN \p(\.+)\p</regex>
+  <order>srcip,srcuser</order>
+</decoder>
+
+<decoder name="barracuda-logout">
+  <parent>barracuda-web</parent>
+  <prematch>LOGOUT</prematch>
+  <regex>web: [(\d+.\d+.\d+.\d+)] LOGOUT \p(\.+)\p</regex>
+  <order>srcip,srcuser</order>
+</decoder>
+
+<decoder name="barracuda-change">
+  <parent>barracuda-web</parent>
+  <prematch>CHANGE</prematch>
+  <regex>web: [(\d+.\d+.\d+.\d+)] global[] CHANGE (\w+) \((\.+)\) \p(\.+)\p</regex>
+  <order>srcip,action,data,srcuser</order>
+</decoder>
+
+<decoder name="barracuda-whitelist">
+  <parent>barracuda-web</parent>
+  <prematch>WHITELIST</prematch>
+  <regex>web: SENDER EMAIL WHITELIST: (\.+)</regex>
+  <order>user</order>
+</decoder>
